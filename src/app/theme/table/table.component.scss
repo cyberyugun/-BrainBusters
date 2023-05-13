@@ -1,0 +1,110 @@
+::ng-deep {
+  .mat {
+    &-mdc {
+      &-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 2em;
+        .table-sorting {
+          margin-right: 4px;
+          .invisible {
+            visibility: hidden;
+          }
+          .up {
+            margin-bottom: -10px;
+            cursor: pointer;
+          }
+          .down {
+            margin-top: -10px;
+            cursor: pointer;
+          }
+        }
+      }
+      &-row {
+        background: transparent;
+        min-height: 68px;
+        height: 100%;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        box-shadow: 5px 5px 15px #00000021;
+        @media(min-width: 1051px) {
+          &:hover {
+            .mat-mdc-cell {
+              background-color: #342981;
+              color: white;
+            }
+          }
+        }
+        @media(max-width: 1050px) {
+          min-height: 0px;
+          cursor: pointer;
+          display: block;
+          overflow: hidden;
+          height: auto;
+          position: relative;
+          clear: both;
+          background: #FFFFFF;
+          box-shadow: 5px 5px 15px #00000021;
+          border-radius: 10px;
+          margin-bottom: 30px;
+          padding: 20px;
+          max-width: 100%;
+        }
+      }
+      &-header {
+        &-row {
+          background: #342981 !important;
+          border-radius: 10px 10px 3px 3px;
+          border: none;
+          @media(max-width: 1050px) {
+            display: none;
+          }
+        }
+        &-cell {
+          color: #ffffff !important;
+          border-radius: 10px;
+        }
+      }
+      &-cell {
+        padding-left: 0;
+        padding-right: 0;
+        background-color: white;
+        &:first-of-type {
+          padding-left: 24px;
+          border-bottom-left-radius: 10px;
+          border-top-left-radius: 10px;
+        }
+        &:last-of-type {
+          padding-right: 24px;
+          border-bottom-right-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+        div {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        @media(max-width: 1050px) {
+          max-width: 100%!important;
+          border-radius: 0!important;
+          padding: 0!important;
+          min-height: 0px;
+          display: block;
+          border: none !important;
+        }
+      }
+    }
+  }
+  .mobile {
+    @media(min-width: 1051px) {
+      display: none !important;
+    }
+  }
+  .desktop {
+    @media(max-width: 1050px) {
+      display: none !important;
+    }
+  }
+}

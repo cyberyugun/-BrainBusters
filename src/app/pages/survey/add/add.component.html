@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="fs-4 card-title fw-bold mb-4">Add Survey</h1>
+    <div>
+      <div [formGroup]="addForm">
+        <div class="w-100 mb-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Project Title</mat-label>
+            <input matInput formControlName="title" autocomplete="email">
+            <mat-error *ngIf="errorValidator(addForm.controls.title.errors, 'required')">Title is required</mat-error>
+          </mat-form-field>
+        </div>
+        <hr class="bg-dark border-2 border-top border-dark">
+        <div class="w-100 mb-5">
+          <div *ngFor="let question of questionsForm.controls;let i = index;" formArrayName="questions">
+            <div [formGroupName]="i">
+              <h3 class="fs-4 card-title fw-bold mb-4">Question {{i + 1}}</h3>
+              <div>
+                <mat-form-field appearance="outline">
+                  <mat-label>Question Title</mat-label>
+                  <input matInput formControlName="title" autocomplete="answer">
+                  <mat-error *ngIf="errorValidator(addForm.controls.title.errors, 'required')">Title is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="mt-2 w-25">
+                <div class="mt-1" *ngFor="let option of optionsForm(i).controls; let idOps = index;" formArrayName="options">
+                  <div [formGroupName]="idOps">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Option</mat-label>
+                      <input matInput formControlName="value" autocomplete="answer">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div>
+                  <button class="btn btn-primary" (click)="addOption('', i, '')">Add Option</button>
+                </div>
+              </div>
+              <div class="mt-5" *ngIf="optionList(i).length > 0">
+                <h5 class="mb-3">Select Answer</h5>
+                <mat-form-field appearance="outline">
+                  <mat-select matNativeControl formControlName="answer" required>
+                    <mat-option *ngFor="let item of optionList(i)" [value]="item.id">{{item.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <hr class="bg-dark border-2 border-top border-dark">
+            </div>
+          </div>
+          <div class="mt-3">
+            <div>
+              <button class="btn btn-dark" (click)="AddQuestionForm('', '', '', '', '')">Add Question</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-success ms-auto w-100" type="submit" (click)="onSubmit(addForm)" [disabled]="!addForm.valid">Save</button>
+        </div>
+      </div>
+      <div class="mt-5">
+        <button class="btn btn-danger ms-auto w-100" routerLink="/survey">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

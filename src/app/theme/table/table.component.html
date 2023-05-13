@@ -1,0 +1,61 @@
+<div class="table-reuse">
+  <div *ngIf="count > 0">
+    <mat-table #table [dataSource]="dataSource">
+      <ng-container *ngFor="let item of displayedcolumns;let i = index;" matColumnDef="{{item}}">
+        <mat-header-cell (click)="(headerType[i] == 'select' || hidesort[i] == true)? '' :sorting(item)" *matHeaderCellDef  [ngStyle]="{'max-width': width[i]}">
+          <div class="table-sorting">
+            <div class="up" [ngClass]="{'invisible': (sort !== 'asc' && indexheader == i)&& sort !== ''}">
+              <img src="/assets/svg/table-sort-arrow-up.svg" alt="Arrow Up">
+            </div>
+            <div class="down" [ngClass]="{'invisible': (sort !== 'desc' && indexheader == i)&& sort !== ''}">
+              <img src="/assets/svg/table-sort-arrow-down.svg" alt="Arrow Down">
+            </div>
+          </div>
+          <div>
+            {{ headerTitle[i] }}
+          </div>
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let element" [ngStyle]="{'max-width': width[i]}" class="justify-content-between">
+          <div class="block mt-2 mb-1 mobile"><h2>{{ headerTitle[i] }}</h2></div>
+          <div *ngIf="headerType[i] == 'text'" class="table-text">
+            {{element[item]}}
+          </div>
+          <div *ngIf="headerType[i] == 'currency'">
+            Rp. {{element[item]}}
+          </div>
+          <div class="d-flex">
+            <div class="d-flex cursor-pointer desktop me-3" *ngIf="(i + 1) === displayedcolumns.length" (click)="openPopup(element)">
+                <fa-icon [icon]="faPenToSquare"></fa-icon>
+            </div>
+            <div class="d-flex cursor-pointer desktop" *ngIf="(i + 1) === displayedcolumns.length" (click)="preview(element)">
+                <fa-icon [icon]="faGlass"></fa-icon>
+            </div>
+          </div>
+          <div class="d-flex cursor-pointer mobile mt-3" *ngIf="(i + 1) === displayedcolumns.length" (click)="openPopup(element)">
+              <button type="button" class="btn btn-primary w-100">Check Here</button>
+          </div>
+
+          <div class="d-flex cursor-pointer mobile mt-3" *ngIf="(i + 1) === displayedcolumns.length" (click)="preview(element)">
+            <button type="button" class="btn btn-success w-100">Preview</button>
+        </div>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;let i = index;"></mat-row>
+    </mat-table>
+  </div>
+  <div *ngIf="count <= 0">
+    <h1>
+      Data Tidak Tersedia
+    </h1>
+  </div>
+  <div class="mt-5" *ngIf="count > 0">
+    <mat-paginator
+      #paginator
+      [length]="count"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>

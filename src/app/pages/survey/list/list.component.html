@@ -1,0 +1,39 @@
+<div>
+  <div>
+    <div class="mb-5">
+      <div class="flex flex-wrap justify-content-between">
+        <form [formGroup]="filterForm" (ngSubmit)="getData()">
+          <div class="flex flex-wrap">
+            <div class="w-20 me-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Project Title</mat-label>
+                <input matInput formControlName="title" autocomplete="email">
+              </mat-form-field>
+            </div>
+            <div class="mb-4">
+              <button type="submit" class="btn btn-primary ms-auto w-60">
+                Filter
+              </button>
+            </div>
+          </div>
+        </form>
+        <div>
+          <button class="btn btn-dark ms-auto w-60" routerLink="/survey/add">Add Survey</button>
+        </div>
+      </div>
+    </div>
+    <app-table
+      [page]="pagenum"
+      [count]="count"
+      [datasource]="list"
+      [headerType]="headerType"
+      [displayedcolumns]="displayedColumns"
+      [headerTitle]="headerTitle"
+      [width]="width"
+      (LinkAction)="LinkAction($event)"
+      (actionDelete)="DeleteAction($event)"
+      (actionEdit)="EditAction($event)"
+      (actionPreview)="previewAction($event)">
+    </app-table>
+  </div>
+</div>
