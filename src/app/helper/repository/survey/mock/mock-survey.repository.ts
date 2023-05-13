@@ -27,7 +27,7 @@ export class MockSurveyRepository implements SurveyAbstract {
     if (params.title) {
       filter = filter.filter((e: filterSurvey) => (e.title.toLowerCase()).includes(params.title.toLowerCase()));
     }
-    return of(filter);
+    return of(filter ? filter : []);
   }
   Add(params: SurveyData): Observable<HttpSurveyAddCollectionResponse> {
     this.storeService.addSurvey([params]);
