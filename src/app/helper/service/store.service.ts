@@ -17,7 +17,12 @@ export class StoreService {
 
   addSurvey(user: SurveyData[]) {
     let arr = JSON.parse(localStorage.getItem('survey') as string);
-    arr.unshift(...user);
+    if (arr) {
+      arr.unshift(...user);
+    } else {
+      arr = [];
+      arr.push(...user)
+    }
     this.survey.next(arr);
   }
 
