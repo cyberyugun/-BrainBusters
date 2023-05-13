@@ -1,9 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { SurveyAbstract } from "src/app/helper/abstract/survey.abstract";
-import { environment } from "src/environments/environment";
 import { HttpSurveyAddCollectionResponse, HttpSurveyCollectionResponse } from "../survey-collection.response";
-import { Observable, map, of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { SurveyData, filterSurvey } from "src/app/helper/domain/survey.model";
 import { StoreService } from "src/app/helper/service/store.service";
 

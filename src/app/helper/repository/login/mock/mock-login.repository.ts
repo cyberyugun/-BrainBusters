@@ -2,7 +2,6 @@ import { Observable, map, of, throwError } from "rxjs";
 import { LoginAbstract } from "src/app/helper/abstract/login.abstract";
 import { Login } from "src/app/helper/domain/login.model";
 import { HttpLoginCollectionResponse } from "../login-collection.response";
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 @Injectable({
