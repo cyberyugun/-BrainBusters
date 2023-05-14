@@ -21,8 +21,8 @@ import { SurveySubmitUsecase } from 'src/app/helper/usecase/survey/submit.usecas
   ]
 })
 export default class PreviewComponent implements OnInit {
-  introduction: boolean = false;
-  normal: boolean = true;
+  introduction: boolean = true;
+  normal: boolean = false;
   end: boolean = false;
   score = 0;
 
