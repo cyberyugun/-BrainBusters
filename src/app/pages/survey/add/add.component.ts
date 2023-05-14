@@ -27,57 +27,28 @@ import { MatSelectModule } from '@angular/material/select';
 export default class AddComponent {
   constructor(
     private router: Router,
-    private surveyService: SurveyService,
+    public surveyService: SurveyService,
     private surveyAddUsecase: SurveyAddUsecase) {
 
   }
   addForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
+    introduction: new FormControl('', [Validators.required]),
     questions: new FormArray([
       this.surveyService.AddQuestion('', '', '', '', '')
     ])
   })
 
-  AddQuestionForm(title: string, valOption: string, idOps: string, answer: string, idQuestion: string) {
-    const questionsForm = this.addForm.get('questions') as FormArray;
-    questionsForm.push(this.surveyService.AddQuestion(title, valOption, idOps, answer, idQuestion));
-  }
-
   get questionsForm() {
     return this.addForm.get('questions') as FormArray;
-  }
-
-  optionsForm(idx: number) {
-    const question = this.addForm.get(`questions.${idx}`);
-    return question?.get('options') as FormArray;
-  }
-
-  addOption(val: string, idx: number, id: string) {
-    const question = this.addForm.get(`questions.${idx}`);
-    const optionForm = this.surveyService.AddOption(val, id);
-    const optionsForm = question?.get('options') as FormArray;
-    optionsForm.push(optionForm);
-  }
-
-  optionList(idx: number) {
-    const question = this.addForm.get(`questions.${idx}`);
-    const optionsForm = question?.get('options') as FormArray;
-    const filter = optionsForm.value.filter((option: any) => option.value !== '')
-    return filter;
-  }
-
-  errorValidator(err: ValidationErrors | null, params: string) {
-    if (err) {
-      return err[params];
-    }
-    return false;
   }
 
   onSubmit(form: FormGroup) {
     const params: SurveyData = {
       id: uuidv4(),
       title: form.value.title,
-      questions: form.value.questions
+      questions: form.value.questions,
+      introduction: form.value.introduction
     }
     if (form.valid) {
       this.surveyAddUsecase.execute(params).subscribe((res) => {

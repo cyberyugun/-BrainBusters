@@ -1,6 +1,7 @@
 export interface SurveyData {
   id: string;
   title: string;
+  introduction: string;
   questions: Survey[];
 }
 

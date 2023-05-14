@@ -1,0 +1,13 @@
+<div class="p-5" [formGroup]="dynamicForm">
+  <div class="mt-5">
+    <h1 class="fs-1 card-title fw-bold mb-4 text-center">Get ready to answer some questions!</h1>
+  </div>
+  <div class="mt-4">
+    <p class="lead" *ngFor="let introduction of split(dynamicForm.value.introduction)">
+      {{introduction}}
+    </p>
+  </div>
+  <div class="mt-5 mb-5">
+    <button type="button" class="btn btn-primary w-100" (click)="next()">OK</button>
+  </div>
+</div>

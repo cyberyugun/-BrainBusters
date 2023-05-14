@@ -2,7 +2,33 @@
   mat-form-field {
     width: 100%;
   }
-  .mat-mdc-form-field-error-wrapper {
-    padding: 0px;
+  .mat {
+    &-ripple {
+      &-element {
+        background-color: #342981 !important;
+      }
+    }
+    &-mdc {
+      &-form-field-error-wrapper {
+        padding: 0px;
+      }
+      &-radio {
+        &-checked {
+          .mdc-radio {
+            &__background {
+              &::before {
+                background-color: #342981 !important;
+              }
+            }
+            &__outer-circle {
+              border-color: #342981 !important;
+            }
+            &__inner-circle {
+              border-color: #342981 !important;
+            }
+          }
+        }
+      }
+    }
   }
 }

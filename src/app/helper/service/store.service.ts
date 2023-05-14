@@ -46,10 +46,25 @@ export class StoreService {
     let survey: SurveyData = {
       id: user.id,
       title: user.title,
-      questions: user.questions
+      questions: user.questions,
+      introduction: user.introduction
     }
     arr[index] = survey;
     localStorage.setItem('survey', JSON.stringify(arr));
     this.survey.next(arr);
+  }
+
+  getSurveyScore(user: SurveyData) {
+    let arr = JSON.parse(localStorage.getItem('survey') as string) as SurveyData[];
+    const index = arr.findIndex(data => data.id === user.id);
+    const scorePerQuestion = 100 / arr[index].questions.length;
+    let score = 0;
+    arr[index].questions.forEach(question => {
+      const filter = user.questions.filter(uq => uq.answer === question.answer);
+      if (filter.length > 0) {
+        score += scorePerQuestion;
+      }
+    });
+    return Math.round(score);
   }
 }

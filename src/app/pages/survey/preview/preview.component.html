@@ -1,1 +1,13 @@
-<p>preview works!</p>
+<a routerLink="/survey" class="link-primary cursor-pointer">Back</a>
+<div class="mt-5 pb-5" [formGroup]="dynamicForm">
+  <div>
+    <h1 class="fs-4 card-title fw-bold mb-4">{{dynamicForm.value.title}}</h1>
+  </div>
+  <div class="card mt-4">
+    <div class="card-body">
+      <app-zero-page *ngIf="introduction" (nextAction)="toQuestionPage()" [dynamicForm]="dynamicForm"></app-zero-page>
+      <app-normal-page *ngIf="normal" (nextAction)="toEndPage()" [dynamicForm]="dynamicForm"></app-normal-page>
+      <app-end-page *ngIf="end" [score]="score"></app-end-page>
+    </div>
+  </div>
+</div>

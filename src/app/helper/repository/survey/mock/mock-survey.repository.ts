@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { SurveyAbstract } from "src/app/helper/abstract/survey.abstract";
-import { HttpSurveyAddCollectionResponse, HttpSurveyCollectionResponse } from "../survey-collection.response";
+import { HttpSurveyAddCollectionResponse, HttpSurveyCollectionResponse, HttpSurveySubmitCollectionResponse } from "../survey-collection.response";
 import { Observable, of } from "rxjs";
 import { SurveyData, filterSurvey } from "src/app/helper/domain/survey.model";
 import { StoreService } from "src/app/helper/service/store.service";
@@ -20,6 +20,16 @@ export class MockSurveyRepository implements SurveyAbstract {
     data: ""
   }
   dataSuccess: Observable<HttpSurveyAddCollectionResponse> = of(this.responseSuccess);
+
+  responseSubmitSuccess: HttpSurveySubmitCollectionResponse = {
+    code: 200,
+    message: "success",
+    meta: undefined,
+    data: {
+      score: 0
+    }
+  }
+  dataSubmitSuccess: Observable<HttpSurveySubmitCollectionResponse> = of(this.responseSubmitSuccess);
   List(params: filterSurvey): Observable<HttpSurveyCollectionResponse> {
     const listSurvey = JSON.parse(localStorage.getItem('survey') as string) as SurveyData[];
     let filter = listSurvey;
@@ -37,6 +47,11 @@ export class MockSurveyRepository implements SurveyAbstract {
   Edit(params: SurveyData): Observable<HttpSurveyAddCollectionResponse> {
     this.storeService.editSurvey(params);
     return of(this.responseSuccess);
+  }
+  Submit(params: SurveyData): Observable<HttpSurveySubmitCollectionResponse> {
+    const score = this.storeService.getSurveyScore(params);
+    this.responseSubmitSuccess.data.score = score;
+    return this.dataSubmitSuccess;
   }
 }
 
