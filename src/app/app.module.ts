@@ -9,6 +9,8 @@ import { CommonModule } from "@angular/common";
 import { StoreService } from "./helper/service/store.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppComponent } from "./app.component";
+import { StoreModule } from "@ngrx/store";
+import { SurveyReducer } from "./helper/state-management/reducer/survey.reducer";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,10 @@ import { AppComponent } from "./app.component";
     BrowserModule,
     CommonModule,
     BrowserAnimationsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    StoreModule.forRoot({
+      survey: SurveyReducer,
+    })
   ],
   providers: [
     StoreService

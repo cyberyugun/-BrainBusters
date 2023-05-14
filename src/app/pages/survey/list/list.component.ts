@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { StoreService } from 'src/app/helper/service/store.service';
 import { SurveyListUsecase } from 'src/app/helper/usecase/survey/list.usecase';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-list',
@@ -38,15 +39,18 @@ export default class ListComponent implements OnInit {
   })
   constructor(private router: Router,
     private surveyListUsecase: SurveyListUsecase,
-    private storeService: StoreService) {}
+    private storeService: StoreService,
+    private store: Store<{survey: filterSurvey}>) {}
   ngOnInit(): void {
     this.setFormSearch();
     this.getData();
   }
 
   setFormSearch() {
-    const data = this.storeService.searchString.getValue() as filterSurvey;
-    this.filterForm.controls.title.setValue(data.title);
+    const data = this.store.select((store) => store);
+    data.subscribe((data) => {
+      this.filterForm.controls.title.setValue(data.survey.title);
+    });
   }
 
   LinkAction(event: SurveyData) {

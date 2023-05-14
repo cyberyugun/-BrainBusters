@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { SurveyData, filterSurvey } from "../domain/survey.model";
+import { Store } from "@ngrx/store";
+import { searchAction } from "../state-management/action/survey.action";
 
 @Injectable()
 export class StoreService {
@@ -10,9 +12,10 @@ export class StoreService {
     title: ''
   });
   currentSearchString = this.searchString.asObservable();
+  constructor(private store: Store<filterSurvey>) {}
 
   setSearch(survey: filterSurvey) {
-    this.searchString.next(survey);
+    this.store.dispatch(searchAction({payload: survey}));
   }
 
   addSurvey(user: SurveyData[]) {
