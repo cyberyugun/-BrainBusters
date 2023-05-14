@@ -6,6 +6,16 @@ import { v4 as uuidv4 } from 'uuid';
   providedIn: 'root'
 })
 export class SurveyService {
+  typeList = [
+    {
+      id: 1,
+      name: '1 Page'
+    },
+    {
+      id: 2,
+      name: 'Per Page'
+    }
+  ]
   constructor() {}
   AddQuestion(title: string, valOption: string, idOps: string, answer: string, idQuestion: string) {
     const questionsForm = new FormGroup({

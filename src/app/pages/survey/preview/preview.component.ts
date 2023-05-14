@@ -36,6 +36,7 @@ export default class PreviewComponent implements OnInit {
     id: new FormControl('', [Validators.required]),
     title: new FormControl('', [Validators.required]),
     introduction: new FormControl('', [Validators.required]),
+    type: new FormControl(1, [Validators.required]),
     questions: new FormArray([
       this.surveyService.AddQuestion('', '', '', '', '')
     ])
@@ -52,6 +53,7 @@ export default class PreviewComponent implements OnInit {
       const survey = data[0];
       this.dynamicForm.controls.title.setValue(survey.title);
       this.dynamicForm.controls.introduction.setValue(survey.introduction);
+      this.dynamicForm.controls.type.setValue(survey.type);
       this.dynamicForm.controls.id.setValue(survey.id);
       survey.questions.forEach((question, idx) => {
         if (idx > 0) {

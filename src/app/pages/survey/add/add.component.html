@@ -3,18 +3,26 @@
     <h1 class="fs-4 card-title fw-bold mb-4">Add Survey</h1>
     <div>
       <div [formGroup]="addForm">
-        <div class="w-100 mb-5">
+        <div class="w-100 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>Project Title</mat-label>
             <input matInput formControlName="title" autocomplete="email">
             <mat-error *ngIf="surveyService.errorValidator(addForm.controls.title.errors, 'required')">Title is required</mat-error>
           </mat-form-field>
         </div>
-        <div class="w-100 mb-5">
+        <div class="w-100 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>Introduction</mat-label>
             <textarea  rows="7" matInput formControlName="introduction" autocomplete="email"></textarea>
             <mat-error *ngIf="surveyService.errorValidator(addForm.controls.title.errors, 'required')">Introduction is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="w-25 mb-3">
+          <h5 class="mb-3">Select Page Type</h5>
+          <mat-form-field appearance="outline">
+            <mat-select matNativeControl formControlName="type" required>
+              <mat-option *ngFor="let item of surveyService.typeList" [value]="item.id">{{item.name}}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <hr class="bg-dark border-2 border-top border-dark">

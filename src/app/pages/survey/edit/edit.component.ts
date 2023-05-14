@@ -38,6 +38,7 @@ export default class EditComponent implements OnInit {
     id: new FormControl('', [Validators.required]),
     title: new FormControl('', [Validators.required]),
     introduction: new FormControl('', [Validators.required]),
+    type: new FormControl(1, [Validators.required]),
     questions: new FormArray([
       this.surveyService.AddQuestion('', '', '', '', '')
     ])
@@ -54,6 +55,7 @@ export default class EditComponent implements OnInit {
       const survey = data[0];
       this.addForm.controls.title.setValue(survey.title);
       this.addForm.controls.introduction.setValue(survey.introduction);
+      this.addForm.controls.type.setValue(survey.type);
       this.addForm.controls.id.setValue(survey.id);
       survey.questions.forEach((question, idx) => {
         if (idx > 0) {

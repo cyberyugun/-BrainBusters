@@ -2,6 +2,7 @@ export interface SurveyData {
   id: string;
   title: string;
   introduction: string;
+  type: number;
   questions: Survey[];
 }
 

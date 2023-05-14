@@ -47,7 +47,8 @@ export class StoreService {
       id: user.id,
       title: user.title,
       questions: user.questions,
-      introduction: user.introduction
+      introduction: user.introduction,
+      type: user.type
     }
     arr[index] = survey;
     localStorage.setItem('survey', JSON.stringify(arr));

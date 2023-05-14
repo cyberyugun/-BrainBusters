@@ -7,6 +7,7 @@ import { EndPageComponent } from "./end-page/end-page.component";
 import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import {MatStepperModule} from '@angular/material/stepper';
 
 const component = [
   ZeroPageComponent,
@@ -21,7 +22,8 @@ const component = [
     MatRadioModule,
     ReactiveFormsModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatStepperModule
   ],
   exports: component
 })

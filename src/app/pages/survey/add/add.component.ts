@@ -34,6 +34,7 @@ export default class AddComponent {
   addForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     introduction: new FormControl('', [Validators.required]),
+    type: new FormControl(1, [Validators.required]),
     questions: new FormArray([
       this.surveyService.AddQuestion('', '', '', '', '')
     ])
@@ -48,7 +49,8 @@ export default class AddComponent {
       id: uuidv4(),
       title: form.value.title,
       questions: form.value.questions,
-      introduction: form.value.introduction
+      introduction: form.value.introduction,
+      type: form.value.type
     }
     if (form.valid) {
       this.surveyAddUsecase.execute(params).subscribe((res) => {

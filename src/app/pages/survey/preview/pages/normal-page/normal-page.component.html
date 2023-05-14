@@ -1,21 +1,50 @@
-<div [formGroup]="dynamicForm">
-  <div class="my-5" *ngFor="let question of dynamicForm.value.questions;let idQ = index;" formArrayName="questions">
-    <div>
-      <div class="mb-4">
-        <h5 class="fs-5 card-title fw-bold mb-4">{{question.title}}</h5>
-      </div>
+<div [formGroup]="dynamicForm" *ngIf="dynamicForm.value.type === 1">
+  <div>
+    <div class="my-5" *ngFor="let question of questions;let idQ = index;" formArrayName="questions">
       <div>
-        <mat-radio-group
-        aria-labelledby="example-radio-group-label"
-        class="example-radio-group" [(ngModel)]="question.answer" (change)="onRadioButtonChange($event, idQ)" [ngModelOptions]="{standalone: true}">
-          <mat-radio-button class="example-radio-button" *ngFor="let option of question.options;" [value]="option.id">
-            {{option.value}}
-          </mat-radio-button>
-        </mat-radio-group>
+        <div class="mb-4">
+          <h5 class="fs-5 card-title fw-bold mb-4">{{question.title}}</h5>
+        </div>
+        <div>
+          <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group" [(ngModel)]="question.answer" (change)="onRadioButtonChange($event, idQ)" [ngModelOptions]="{standalone: true}">
+            <mat-radio-button class="example-radio-button" *ngFor="let option of question.options;" [value]="option.id">
+              {{option.value}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
       </div>
     </div>
+    <div class="mt-5">
+      <button type="button" class="btn btn-primary w-100" (click)="next()" [disabled]="!dynamicForm.valid">Submit</button>
+    </div>
   </div>
-  <div class="mt-5">
-    <button type="button" class="btn btn-primary w-100" (click)="next()" [disabled]="!dynamicForm.valid">Submit</button>
+</div>
+<div [formGroup]="dynamicForm" *ngIf="dynamicForm.value.type === 2">
+  <div>
+    <mat-stepper [linear]="isLinear" #stepper (selectionChange)="selectionChange($event)">
+      <mat-step formArrayName="questions" *ngFor="let question of questions;let idx = index">
+        <div>
+          <div class="mb-4">
+            <h5 class="fs-5 card-title fw-bold mb-4">{{question.title}}</h5>
+          </div>
+          <div>
+            <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group" [(ngModel)]="question.answer" (change)="onRadioButtonChange($event, idx)" [ngModelOptions]="{standalone: true}">
+              <mat-radio-button class="example-radio-button" *ngFor="let option of question.options;" [value]="option.id">
+                {{option.value}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="mt-5">
+          <button *ngIf="idx !== 0" type="button" class="btn btn-danger w-100 mb-3" (click)="backStep()">Back</button>
+          <button *ngIf="idx !== questions.length-1" type="button" class="btn btn-primary w-100" (click)="nextStep()" [disabled]="!validNext(idx)">Next</button>
+          <button *ngIf="idx === questions.length-1" class="btn btn-primary w-100" (click)="next()" [disabled]="!dynamicForm.valid">Submit</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
   </div>
 </div>
